@@ -4,24 +4,15 @@ from kivymd.uix.label import MDLabel
 from kivymd.uix.button import MDRectangleFlatButton
 from kivy.uix.screenmanager import Screen
 from kivy.lang import Builder
+from kivymd.font_definitions import theme_font_styles
+from kivy.core.text import LabelBase
 
 KV = '''
 Screen:
-    # app = MainApp()
-    MDRaisedButton:
-        text: "primary_light"
-        pos_hint: {"center_x": 0.5, "center_y": 0.7}
-        md_bg_color: app.theme_cls.primary_light
 
-    MDRaisedButton:
-        text: "primary_color"
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
-
-    MDRaisedButton:
-        text: "primary_dark"
-        pos_hint: {"center_x": 0.5, "center_y": 0.3}
-        md_bg_color: app.theme_cls.primary_dark
-
+    MDLabel:
+        text: "JetBrainsMono"
+        halign: "center"
 '''
 
 class MainApp(MDApp):
@@ -33,7 +24,6 @@ class MainApp(MDApp):
         self.theme_cls.primary_hue = "500"
         self.theme_cls.theme_style = "Light"
         
-
         return Builder.load_string(KV)
 
 
