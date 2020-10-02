@@ -1,89 +1,37 @@
-from kivy.lang import Builder
-from kivy.properties import StringProperty
-from kivy.uix.screenmanager import Screen
+from kivy.metrics import dp
 
 from kivymd.app import MDApp
-from kivymd.icon_definitions import md_icons
-from kivymd.uix.list import OneLineIconListItem
+from kivymd.uix.datatables import MDDataTable
 
-Builder.load_string(
-'''
-#:import images_path kivymd.images_path
-
-<CustomOneLineIconListItem>:
-
-    IconLeftWidget:
-        icon: root.icon
-
-<PreviousMDIcons>:
-    BoxLayout:
-        orientation: 'vertical'
-        spacing: dp(10)
-        padding: dp(20)
-
-        BoxLayout:
-            size_hint_y: None
-            height: self.minimum_height
-
-            MDIconButton:
-                icon: 'magnify'
-
-            MDTextField:
-                id: search_field
-                hint_text: 'Search icon'
-                on_text: root.set_list_md_icons(self.text, True)
-
-        RecycleView:
-            id: rv
-            key_viewclass: 'viewclass'
-            key_size: 'height'
-
-            RecycleBoxLayout:
-                padding: dp(10)
-                default_size: None, dp(48)
-                default_size_hint: 1, None
-                size_hint_y: None
-                height: self.minimum_height
-                orientation: 'vertical'
-
-
-''')
-
-class CustomOneLineIconListItem(OneLineIconListItem):
-    icon = StringProperty()
-
-
-class PreviousMDIcons(Screen):
-    def set_list_md_icons(self, text="", search=False):
-
-        def add_icon_item(name_icon):
-            self.ids.rv.data.append(
-                {
-                    'viewclass': 'CustomOneLineIconListItem',
-                    'icon': name_icon,
-                    'text': name_icon,
-                    'callback': lambda x: x,
-                }
-            )
-        self.ids.rv.data = []
-        for name_icon in md_icons.keys():
-            if search:
-                if text in name_icon:
-                    add_icon_item(name_icon)
-            else:
-                add_icon_item(name_icon)
-
-
-class MainApp(MDApp):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.screen = PreviousMDIcons()
-
+class Example(MDApp):
     def build(self):
-        return self.screen
+        self.data_tables = MDDataTable(
+            size_hint=(0.9, 0.6),
+            use_pagination=True,
+            check=True,
+            column_data=[
+                ("No.", dp(30)),
+                ("Column 1", dp(30)),
+                ("Column 2", dp(30)),
+                ("Column 3", dp(30)),
+                ("Column 4", dp(30)),
+                ("Column 5", dp(30)),
+            ],
+            row_data=[
+                (f'{i+1}', '4.1', '2.3', '82', '2.3', '0.82') for i in range(10)
+            ]
+        )
+        self.data_tables.bind(on_row_press = self.on_row_press)
+        self.data_tables.bind(on_check_press = self.on_check_press)
+
+    def on_row_press(self, inst_table, inst_row):
+        print(inst_table, inst_row)
+
+    def on_check_press(self, inst_table, inst_row):
+        print(inst_table, inst_row)
 
     def on_start(self):
-        self.screen.set_list_md_icons()
+        self.data_tables.open()
 
 
-MainApp().run()
+Example().run()
