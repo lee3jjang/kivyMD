@@ -2,6 +2,14 @@ from kivy.lang import Builder
 from kivy.animation import Animation
 
 from kivymd.app import MDApp
+from kivymd.uix.button import MDFlatButton
+
+KV0 = '''
+<MyButton@MDRoundFlatButton>
+    text: 'this is my button'
+    text_color: 0, 1, 0, 1
+    
+'''
 
 KV = '''
 Screen:
@@ -14,7 +22,12 @@ Screen:
         text: 'plop'
         size_hint: None, None
         pos_hint: {"center_x": .5, "center_y": .3}
+
+    MyButton:
+        pos_hint: {"center_x": .5, "center_y": .1}
+        
 '''
+
 
 class TestApp(MDApp):
 
@@ -27,6 +40,7 @@ class TestApp(MDApp):
         anim.start(inst)
 
     def build(self):
+        Builder.load_string(KV0)
         return Builder.load_string(KV)
 
 TestApp().run()
