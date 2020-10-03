@@ -6,12 +6,8 @@ from kivy.core.window import Window
 from kivy.loader import Loader
 from kivy.lang import Builder
 
-from kivymd import images_path
 from kivymd.app import MDApp
 
-
-print("asdfasdf")
-print("asdfasdf111111")
 
 # from libs.baseclass.list_items import KitchenSinkOneLineLeftIconItem
 
@@ -32,7 +28,6 @@ class KitchenSinkApp(MDApp):
         self.dialog_change_theme = None
         self.toolbar = None
         self.data_screens = {}
-        Loader.loading_image = os.path.join(images_path, 'transparent.png')
 
     def build(self): 
         Builder.load_file(
@@ -42,9 +37,6 @@ class KitchenSinkApp(MDApp):
         return Builder.load_file(
             f"{os.path.join(os.environ['KITCHEN_SINK_ROOT'], 'libs', 'kv', 'start_screen.kv')}"
         )
-
-from kivymd import images_path
-
 
 KitchenSinkApp().run()
 print("---end---")
