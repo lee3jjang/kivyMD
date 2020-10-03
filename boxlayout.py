@@ -27,7 +27,8 @@ class MyFlatButton(MDFlatButton):
 
 
 class Example(MDApp):
-    
+    title = 'Hello My App!'
+
     def __init__(self):
         super().__init__()
         self.theme_cls.primary_palette = 'Teal'
