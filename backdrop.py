@@ -20,6 +20,9 @@ Builder.load_string(
     source: "images/kivymd.png"
     pos_hint: {"center_x": .5, "center_y": .6}
 
+# MyBackdropBackLayer는 Image uix를 상속받음
+# MyBackdropFrontLayer는 ItemBackdropFrontLayer uix를 상속받음
+# ItemBackdropFrontLayer는 TwoLineAvatarListItem uix를 상속받음
 <MyBackdropFrontLayer@ItemBackdropFrontLayer>
     backdrop: None
     text: "Lower the front layer"
