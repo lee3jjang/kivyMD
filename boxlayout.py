@@ -3,10 +3,27 @@ from kivymd.app import MDApp
 from kivy.factory import Factory
 from kivy.uix.boxlayout import BoxLayout
 from kivymd.uix.button import MDFlatButton
+from kivy.core.window import Window
+from kivy.graphics import Rectangle, Color
 
-KV = '''
-        
-'''
+Window.size = (300, 100)
+
+class MyFlatButton(MDFlatButton):
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.flag = True
+
+    def on_release(self):
+        if self.flag:
+            # self.canvas.clear()
+            self.text = ''
+        else:
+            with self.canvas:
+                Color(1, 0, 0, .5, mode='rgba')
+                self.rect = Rectangle(pos=(80, 0), size=(140, 40))
+                self.text = "Hello My Button!"
+        self.flag = not self.flag
 
 
 class Example(MDApp):
@@ -29,7 +46,7 @@ class Example(MDApp):
             pos_hint={'center_x': .5, 'center_y': .5},
         )
 
-        btn2 = MDFlatButton(
+        btn2 = MyFlatButton(
             text="My Flat Button",
             font_size="18sp",
             size_hint=(None, None),
@@ -41,4 +58,5 @@ class Example(MDApp):
 
         return layout
 
-Example().run()
+app = Example()
+app.run()
