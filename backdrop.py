@@ -37,17 +37,18 @@ Builder.load_string(
 
     MDBackdrop:
         id: backdrop
-        title: "Example Backdrop"
-        left_action_items: [['menu', lambda x: self.open()]] # self: MDBackdrop object
-        header_text: "Menu"
+        title: "BackLayer"
+        left_action_items: [['menu', lambda x: self.open()]]
+        right_action_items: [['dots-vertical', lambda x: self.open()], ['clock', lambda x: self.open()]]
+        header_text: "FrontLayer"
 
         MDBackdropBackLayer:
             MyBackdropBackLayer:
-                id: backlayer
+                id: backlayer # 쓰이지 않음
 
         MDBackdropFrontLayer:
             MyBackdropFrontLayer:
-                backdrop: backdrop
+                backdrop: backdrop # MDBackdrop의 id
                 
 ''')
 
@@ -60,3 +61,4 @@ class TestBackdrop(MDApp):
         return ExampleBackdrop()
 
 TestBackdrop().run()
+
