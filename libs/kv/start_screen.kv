@@ -1,0 +1,24 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import Home libs.baseclass.home.Home
+
+BoxLayout:
+    orientation: "vertical"
+
+    BoxLayout:
+        id: toolbar_box
+        size_hint_y: None
+        height: self.minimum_height
+
+    ScreenManager:
+        id: screen_manager
+        transition: FadeTransition(duration=.2, clearcolor=app.theme_cls.bg_dark)
+
+    Home:
+        id: home
+        name: "Home"
+
+        MDBackdrop:
+            id: backdrop
+            on_open: home.opening_animation_backdrop_components(backdrop, '')
+
+            MDBackdropBackLayer:

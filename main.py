@@ -9,6 +9,10 @@ from kivy.lang import Builder
 from kivymd import images_path
 from kivymd.app import MDApp
 
+
+print("asdfasdf")
+print("asdfasdf111111")
+
 # from libs.baseclass.list_items import KitchenSinkOneLineLeftIconItem
 
 # os.environ 설정
@@ -24,7 +28,7 @@ Window.softinput_mode = 'below_target' # 뭔지 모르겠음
 class KitchenSinkApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.theme_cls.primary_palette = 'Red'
+        self.theme_cls.primary_palette = 'Blue'
         self.dialog_change_theme = None
         self.toolbar = None
         self.data_screens = {}
@@ -38,6 +42,9 @@ class KitchenSinkApp(MDApp):
         return Builder.load_file(
             f"{os.path.join(os.environ['KITCHEN_SINK_ROOT'], 'libs', 'kv', 'start_screen.kv')}"
         )
+
+from kivymd import images_path
+
 
 KitchenSinkApp().run()
 print("---end---")
