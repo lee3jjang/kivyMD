@@ -3,6 +3,8 @@
 # from kivy.uix.boxlayout import BoxLayout
 from kivy.graphics import Rectangle, Color
 from kivy.core.window import Window
+from kivy.uix.screenmanager import Screen, ScreenManager
+
 from kivymd.app import MDApp
 # from kivymd.uix.button import MDFlatButton
 from kivymd.uix.bottomnavigation import MDBottomNavigation
@@ -10,8 +12,13 @@ from kivymd.uix.bottomnavigation import MDBottomNavigationItem
 from kivymd.uix.toolbar import MDToolbar
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.label import MDLabel
+from kivymd.uix.navigationdrawer import NavigationLayout, MDNavigationDrawer
+# from kivy.uix.widget import Widget
 
 Window.size = 144*3, 256*3
+
+class ContentNavigationDrawer(MDBoxLayout):
+    pass
 
 class Example(MDApp):
     title = 'Hello My App!'
@@ -21,18 +28,29 @@ class Example(MDApp):
         self.theme_cls.primary_palette = 'Teal'
 
     def build(self):
-        layout = MDBoxLayout(
-            orientation='vertical',
-            # size_hint=(None, None),
-            # pos_hint={'center_x': .5, 'center_y': .5},
-        )
+        ############## 0. 레이아웃  ##############
 
-        # 툴바
-        toolbar = MDToolbar(
-            title="Bottom navigation",
-            # left_action_items=[['menu', lambda x: x]],
-        )
+        nav_layout = NavigationLayout()
+        screen = Screen()
+        screen2 = Screen()
+        screen_manager = ScreenManager()
+        layout = MDBoxLayout(orientation='vertical')
+        toolbar = MDToolbar(title="Navigation Drawer")
+        toolbar.left_action_items = [['menu', lambda x: x]]
+        content_nav_drawer = ContentNavigationDrawer()
+        nav_drawer = MDNavigationDrawer()
+        nav_drawer.id = 'nav_drawer'
+        nav_drawer.add_widget(content_nav_drawer)
+        
+        screen.add_widget(nav_layout)
+        nav_layout.add_widget(screen_manager)
+        nav_layout.add_widget(nav_drawer)
+        screen_manager.add_widget(screen2)
+        screen2.add_widget(layout)
+        layout.add_widget(toolbar)
 
+
+        ############## 2. 하단 네비  ##############
         bottomnav = MDBottomNavigation()
 
         # Python
@@ -41,8 +59,6 @@ class Example(MDApp):
             text='Python',
             icon='language-python'
         )
-
-        # 이게 중간 화면에 나옴
         label1 = MDLabel(
             text='Python',
             halign='center'
@@ -69,6 +85,9 @@ class Example(MDApp):
             text='JS',
             halign='center'
         )
+
+        ############## 3. 네비 드로워 ##############
+
         
         bottomnav.add_widget(bottomnav_item1)
         bottomnav_item1.add_widget(label1)
@@ -77,12 +96,12 @@ class Example(MDApp):
         bottomnav.add_widget(bottomnav_item3)
         bottomnav_item3.add_widget(label3)
 
-        layout.add_widget(toolbar)
+        
         layout.add_widget(bottomnav)
 
 
 
-        return layout
+        return screen
 
 app = Example()
 app.run()
