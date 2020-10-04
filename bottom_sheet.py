@@ -56,6 +56,13 @@ Screen:
         pos_hint: {"center_x": .5, "center_y": .2}
         on_release: Snackbar(text="This is a snackbar!").open()
 
+    MDDropDownItem:
+        pos_hint: {"center_x": .5, "center_y": .6}
+        text: "item"
+        id: drop_item
+        on_release: self.set_item("New Item")
+
+
 '''
 
 
