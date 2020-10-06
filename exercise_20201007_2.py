@@ -6,6 +6,8 @@ Window.size = (300, 500)
 KV = '''
 #:import MDListBottomSheet kivymd.uix.bottomsheet.MDListBottomSheet
 #:import MDGridBottomSheet kivymd.uix.bottomsheet.MDGridBottomSheet
+#:import MDDataTable kivymd.uix.datatables.MDDataTable
+#:import dp kivy.metrics.dp
 #:import toast kivymd.toast.toast
 
 Screen:
@@ -22,6 +24,7 @@ Screen:
 
         MDTabs:
             id: tabs
+            md_bg_color: app.theme_cls.primary_dark
 
             MDTabsBase:
                 text: "Tab 1"
@@ -34,27 +37,46 @@ Screen:
             MDTabsBase:
                 text: "Tab 5"
 
-        MDRaisedButton:
-            text: "Open list bottom sheet"
-            on_release:
-                bottom_sheet_menu = MDGridBottomSheet()
-                bottom_sheet_menu.add_item("Standard Item", lambda x: toast("youtube"), icon_src="youtube")
-                bottom_sheet_menu.open()
-                print(self)
-                print(app)
-                print(root)
-            pos_hint: {"center_x": .5, "center_y": .5}
+        MDFloatLayout:
+            md_bg_color: app.theme_cls.primary_light
+
+            MDRaisedButton:
+                text: "Open list bottom sheet"
+                on_release:
+                    bottom_sheet_menu = MDGridBottomSheet()
+                    bottom_sheet_menu.add_item("Standard Item", lambda x: toast("youtube"), icon_src="youtube")
+                    bottom_sheet_menu.open()
+                pos_hint: {"center_x": .5, "center_y": .8}
+
+            MDRaisedButton:
+                text: "datatable open"
+                on_release:
+                    data_table = MDDataTable(size_hint=(0.9, 0.6), \
+                        column_data=[ \
+                            ("No.", dp(30)), \
+                            ("Column 1", dp(30)), \
+                            ("Column 2", dp(30)), \
+                            ("Column 3", dp(30)), \
+                            ("Column 4", dp(30)), \
+                            ("Column 5", dp(30)), \
+                        ], \
+                        row_data=[ \
+                            (f"{i + 1}", "2.23", "3.65", "44.1", "0.45", "62.5") for i in range(50) \
+                        ], \
+                    )
+                    data_table.open()
+                pos_hint: {"center_x": .5, "center_y": .3}
 
         MDTextField:
             hint_text: "This is hint text"
+
+        MDFloatingActionButton:
+            icon: "plus"
 '''
 
 class Test(MDApp):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.screen = Builder.load_string(KV)
-
     def build(self):
+        self.theme_cls.primary_palette = "Teal"
         return Builder.load_string(KV)
 
 Test().run()
