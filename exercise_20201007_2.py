@@ -13,7 +13,7 @@ Screen:
 
     BoxLayout:
         orientation: "vertical"
-        
+
         MDToolbar:
             title: "Example"
             pos_hint: {"top": 1}
@@ -56,6 +56,5 @@ class Test(MDApp):
 
     def build(self):
         return Builder.load_string(KV)
-
 
 Test().run()
