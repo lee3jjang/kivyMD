@@ -1,51 +1,51 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
 from kivy.core.window import Window
-from kivymd.uix.card import MDCardSwipe
-from kivy.properties import StringProperty
 Window.size = (300, 500)
 
 KV = '''
-<SwipeToDeleteItem>
-    size_hint_y: None
-    height: content.height
-
-    MDCardSwipeLayerBox:
-
-    MDCardSwipeFrontBox:
-
-        OneLineListItem:
-            id: content
-            text: root.text
-            _no_ripple_effect: True
-
 Screen:
-    BoxLayout:
+    MDCard:
         orientation: "vertical"
-        spacing: "10dp"
+        padding: "8dp"
+        size_hint: None, None
+        size: "280dp", "180dp"
+        pos_hint: {"center_x": .5, "center_y": .5}
 
-        MDToolbar:
-            elevation: 10
-            title: "MDCardSwipe"
+        MDLabel:
+            text: "Title"
+            theme_text_color: "Secondary"
+            size_hint_y: None
+            height: self.texture_size[1]
 
-        ScrollView:
-            MDList:
-                id: md_list
-                padding: 0
+        MDSeparator:
+            height: "1dp"
 
+        MDLabel:
+            text: "Body"
+
+    MDFlatButton:
+        text: "ALERT DIALOG"
+        pos_hint: {'center_x': .5}
+        on_release: app.show_dialog()
 '''
-class SwipeToDeleteItem(MDCardSwipe):
-    text = StringProperty()
+
 
 class Test(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Teal"
         return Builder.load_string(KV)
 
-    def on_start(self):
-        for i in range(20):
-            self.root.ids.md_list.add_widget(
-                SwipeToDeleteItem(text=f"One-line item {i}")
-            )
+    def show_dialog(self):
+        self.dialog = MDDialog(
+            text="Discard draft?",
+            buttons=[
+                MDFlatButton(text="CANCEL", text_color=self.theme_cls.primary_color),
+                MDFlatButton(text="DISCARD", text_color=self.theme_cls.primary_color),
+            ],
+        )
+        self.dialog.open()
 
 Test().run()
