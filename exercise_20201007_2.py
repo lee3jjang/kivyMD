@@ -40,6 +40,12 @@ Screen:
         MDFloatLayout:
             md_bg_color: app.theme_cls.primary_light
 
+            MDRoundFlatButton:
+                text: "Button"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release:
+                    print(spin)
+
             MDRaisedButton:
                 text: "Open list bottom sheet"
                 on_release:
@@ -72,6 +78,12 @@ Screen:
 
         MDFloatingActionButton:
             icon: "plus"
+
+        MDSpinner:
+            id: spin
+            size_hint: None, None
+            size: dp(48), dp(48)
+            pos_hint: {'center_x': .5, 'center_y': .5}
 '''
 
 class Test(MDApp):
