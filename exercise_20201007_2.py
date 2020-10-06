@@ -1,14 +1,18 @@
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.core.window import Window
+from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelThreeLine
+from kivymd.uix.boxlayout import MDBoxLayout
 Window.size = (300, 500)
 
 KV = '''
 #:import MDListBottomSheet kivymd.uix.bottomsheet.MDListBottomSheet
 #:import MDGridBottomSheet kivymd.uix.bottomsheet.MDGridBottomSheet
+#:import MDExpansionPanel kivymd.uix.expansionpanel.MDExpansionPanel
 #:import MDDataTable kivymd.uix.datatables.MDDataTable
-#:import dp kivy.metrics.dp
+#:import Snackbar kivymd.uix.snackbar.Snackbar
 #:import toast kivymd.toast.toast
+#:import dp kivy.metrics.dp
 
 Screen:
     name: "MainScreen"
@@ -24,7 +28,6 @@ Screen:
 
         MDTabs:
             id: tabs
-            md_bg_color: app.theme_cls.primary_dark
 
             MDTabsBase:
                 text: "Tab 1"
@@ -37,7 +40,8 @@ Screen:
             MDTabsBase:
                 text: "Tab 5"
 
-        MDFloatLayout:
+        MDGridLayout:
+            cols: 2
             md_bg_color: app.theme_cls.primary_light
 
             MDRoundFlatButton:
@@ -52,7 +56,7 @@ Screen:
                     bottom_sheet_menu = MDGridBottomSheet()
                     bottom_sheet_menu.add_item("Standard Item", lambda x: toast("youtube"), icon_src="youtube")
                     bottom_sheet_menu.open()
-                pos_hint: {"center_x": .5, "center_y": .8}
+                # pos_hint: {"center_x": .5, "center_y": .8}
 
             MDRaisedButton:
                 text: "datatable open"
@@ -71,7 +75,25 @@ Screen:
                         ], \
                     )
                     data_table.open()
-                pos_hint: {"center_x": .5, "center_y": .3}
+                # pos_hint: {"center_x": .5, "center_y": .3}
+
+            MDRectangleFlatIconButton:
+                icon: "android"
+                text: "anddddddddddd"
+                on_release:
+                    snackbar = Snackbar(text="This is snakar")
+                    snackbar.open()
+                    pbar.value = 70
+
+        ScrollView:
+            MDGridLayout:
+                id: mybox
+                cols: 1
+                adaptive_height: True
+            
+        MDProgressBar:
+            id: pbar
+            value: 50
 
         MDTextField:
             hint_text: "This is hint text"
@@ -84,11 +106,48 @@ Screen:
             size_hint: None, None
             size: dp(48), dp(48)
             pos_hint: {'center_x': .5, 'center_y': .5}
+
+<Content>
+    adaptive_height: True
+ 
+    TwoLineIconListItem:
+        text: "010-3013-xxxx"
+        secondary_text: "lee3jjang"
+
+        IconLeftWidget:
+            icon: 'google'
 '''
+
+class Content(MDBoxLayout):
+    pass
 
 class Test(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Teal"
         return Builder.load_string(KV)
+
+    def on_start(self):
+        self.root.ids.mybox.add_widget(
+            MDExpansionPanel(
+                content=Content(),
+                panel_cls=MDExpansionPanelThreeLine(
+                    text="text",
+                    secondary_text="Secondary text",
+                    tertiary_text="Tertiary text",
+                )
+            )
+        )
+
+        self.root.ids.mybox.add_widget(
+            MDExpansionPanel(
+                content=Content(),
+                panel_cls=MDExpansionPanelThreeLine(
+                    text="text",
+                    secondary_text="Secondary text",
+                    tertiary_text="Tertiary text",
+                )
+            )
+        )
+    
 
 Test().run()
