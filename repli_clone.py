@@ -12,6 +12,7 @@ from kivymd.uix.card import MDCard
 from kivymd import images_path
 from kivymd.uix.list import ThreeLineAvatarListItem
 from kivy.properties import StringProperty
+from kivy.uix.screenmanager import ScreenManager, Screen
 Window.size = (144*3, 256*3)
 
 
@@ -25,8 +26,9 @@ KV = '''
 #:import dp kivy.metrics.dp
 #:import Window kivy.core.window.Window
 
-Screen:
-    name: "MainScreen"
+
+<MainScreen>:
+    name: "main"
 
     MDBoxLayout:
         orientation: "vertical"
@@ -53,7 +55,8 @@ Screen:
                     x: self.parent.x
                     width: self.parent.width
                     height: self.parent.height/3.25
-                    on_release: print("Button")
+                    on_release:
+                        root.manager.current = 'sub'
                     Image:
                         source: 'images/data_mining.png'
                         size_hint_y: None
@@ -136,10 +139,21 @@ Screen:
                 icon: 'account'
 '''
 
+class MainScreen(Screen):
+    pass
+
+class SubScreen(Screen):
+    pass
+
 class Test(MDApp):
     def build(self):
         self.theme_cls.primary_palette = "Blue"
-        return Builder.load_string(KV)   
+        Builder.load_file('repli_clone.kv')
+        Builder.load_string(KV) 
+        sm = ScreenManager()
+        sm.add_widget(MainScreen(name='main'))
+        sm.add_widget(SubScreen(name='sub'))
+        return sm
 
     def on_start(self):
         pass
