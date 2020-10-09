@@ -5,9 +5,12 @@ from kivymd.uix.expansionpanel import MDExpansionPanel, MDExpansionPanelThreeLin
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.icon_definitions import md_icons
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.behaviors import ButtonBehavior  
+from kivy.uix.image import Image
 from kivymd.uix.tab import MDTabsBase
 from kivymd.uix.card import MDCard
 from kivymd import images_path
+from kivymd.uix.list import ThreeLineAvatarListItem
 from kivy.properties import StringProperty
 Window.size = (144*3, 256*3)
 
@@ -20,6 +23,7 @@ KV = '''
 #:import Snackbar kivymd.uix.snackbar.Snackbar
 #:import toast kivymd.toast.toast
 #:import dp kivy.metrics.dp
+#:import Window kivy.core.window.Window
 
 Screen:
     name: "MainScreen"
@@ -28,102 +32,116 @@ Screen:
         orientation: "vertical"
 
         MDToolbar:
-            title: "My Lecture Room"
+            title: "REPLI"
+            halign: "center"
             pos_hint: {"top": 1}
-            left_action_items: [["menu", lambda x: x]]
-            right_action_items: [["cog", lambda x: x]]
-            elevation: 10
+            elevation: 0
 
-        MDTabs:
-            Tab:
-                text: "My Lecture Room"
+        ScrollView:
+            size_hint_y: None
+            size_hint_x: None
+            y: self.parent.y
+            x: self.parent.x
+            width: self.parent.width
+            height: self.parent.height-100
 
-                ScrollView:
-                    MDBoxLayout:
-                        id: lectures
-                        padding: 10
-                        spacing: 10
-                        orientation: "vertical"
-                        adaptive_height: True                     
+            MDList:
+                Button:
+                    size_hint_y: None
+                    size_hint_x: None
+                    y: self.parent.y
+                    x: self.parent.x
+                    width: self.parent.width
+                    height: self.parent.height/3.25
+                    on_release: print("Button")
+                    Image:
+                        source: 'images/data_mining.png'
+                        size_hint_y: None
+                        size_hint_x: None
+                        y: self.parent.y
+                        x: self.parent.x
+                        width: self.parent.width
+                        height: self.parent.height
+                        allow_stretch: True                
 
-            Tab:
-                text: "K-MOOC Lecture"
 
-<Card>
-    elevation: 10
-    size_hint: 1., None  
-    size: 100, 200
-    radius: (10, )
-    on_release: print(root.title)
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice?"
+                    on_release: print("List")
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
 
-    BoxLayout:
-        orientation: "vertical"
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice ?"
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
 
-        FitImage:
-            id: bg_image
-            source: f"images/{root.img}" 
-            size_hint_y: .6
-            pos_hint: {"top": 1}
-            radius: [10, 10, 0, 0, ]
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice?"
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
 
-        TwoLineListItem:
-            text: root.title
-            secondary_text: root.end_date
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice?"
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
+
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice?"
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
+
+                ThreeLineAvatarListItem:
+                    text: "2020.10.08 VOTING"
+                    secondary_text: "Three Laws about Economy"
+                    tertiary_text: "What's your choice?"
+                    ImageLeftWidget:
+                        source: "images/img1.jpg"
+
+        MDBottomNavigation:
+            
+            MDBottomNavigationItem:
+                # name: 'topic'
+                text: 'TOPIC'
+                icon: 'home'
+
+            MDBottomNavigationItem:
+                # name: 'history'
+                text: 'HISTORY'
+                icon: 'text-box-multiple'
+
+            MDBottomNavigationItem:
+                # name: 'search'
+                text: 'SEARCH'
+                icon: 'magnify'
+
+            MDBottomNavigationItem:
+                # name: 'alarm'
+                text: 'ALARM'
+                icon: 'bell'
+
+            MDBottomNavigationItem:
+                # name: 'acoount'
+                text: 'ACCOUNT'
+                icon: 'account'
 '''
-
-class Card(MDCard):
-    title = StringProperty()
-    end_date = StringProperty()
-    img = StringProperty()
-
-class Tab(FloatLayout, MDTabsBase):
-    pass
 
 class Test(MDApp):
     def build(self):
-        self.theme_cls.primary_palette = "Teal"
+        self.theme_cls.primary_palette = "Blue"
         return Builder.load_string(KV)   
 
     def on_start(self):
-        card_list = []
-        card = Card(
-            title="What's Literature?",
-            end_date="Closed(Closing Date: 1st Feb)",
-            img="book.jfif"
-        )
-        card_list.append(card)
-        card = Card(
-            title="Data Mining for Business Administration",
-            end_date="Closed(Closing Date: 15th Feb)",
-            img="data_mining.png"
-        )
-        card_list.append(card)
-        card = Card(
-            title="What's Literature?",
-            end_date="Closed(Closing Date: 1st Feb)",
-            img="book.jfif"
-        )
-        card_list.append(card)
-        card = Card(
-            title="Data Mining for Business Administration",
-            end_date="Closed(Closing Date: 15th Feb)",
-            img="data_mining.png"
-        )
-        card_list.append(card)
-        card = Card(
-            title="What's Literature?",
-            end_date="Closed(Closing Date: 1st Feb)",
-            img="book.jfif"
-        )
-        card_list.append(card)
-        card = Card(
-            title="Data Mining for Business Administration",
-            end_date="Closed(Closing Date: 15th Feb)",
-            img="data_mining.png"
-        )
-        card_list.append(card)
-        
-        for card in card_list:
-            self.root.ids.lectures.add_widget(card)
+        pass
 
 Test().run()
