@@ -1,9 +1,88 @@
-MDBoxLayout:
-    orientation: "vertical"
+<WhiteLabel@MDLabel>
+	size_hint_y: None
+	height: self.texture_size[1]
+	theme_text_color: "Custom"
+	text_color: 1, 1, 1, 1
 
-    MDToolbar:
-        title: "My Lecture Room"
-        pos_hint: {"top": 1}
-        left_action_items: [["menu", lambda x: x]]
-        right_action_items: [["cog", lambda x: x]]
-        elevation: 10
+<FieldRound@MDTextFieldRound>
+	pos_hint: {"center_x": .5}
+	normal_color: 0, 1, 1, .5
+
+Screen:
+	FitImage:
+		source: "images/bg.png"
+
+	BoxLayout:
+    	orientation: "vertical"
+		size_hint_y: None
+		height: self.minimum_height
+		pos_hint: {"center_x": .5, "center_y": .5}
+		padding: "24dp", "24dp", "24dp", "32dp"
+		spacing: "12dp"
+		size_hint_x: .75
+
+    	canvas:
+			Color:
+				rgba: 1, 1, 1, .2
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		WhiteLabel:
+			text: "REGISTER FOR AN ACOCUNT"
+			bold: True
+
+
+		Widget:
+			size_hint_y: None
+			height: "4dp"
+	
+		WhiteLabel:
+			text: "Welcome"
+			bold: True
+		
+		WhiteLabel:
+			text: "We just need get ad few details from to get you signed up to service"
+			font_style: "Caption"
+
+		Widget:	
+			size_hint_y: None
+			height: "24dp"
+
+		FieldRound:
+			icon_left: "mail"
+			hint_text: "Login"
+
+		FieldRound:
+			icon_left: "lock"
+			hint_text: "Password"
+
+		Label:
+			text: "I agree to the Term & Condition"
+			font_style: "Caption"
+			halign: "center"
+	
+		MDRaisedButton:
+			text: "SIGN UP"
+			pos_hint: {"center_x": .5}
+			md_bg_color: 0, 1, 1, .5
+
+	BoxLayout:
+		y: 300 - 70
+		size_hint_y: None
+		height: self.minimum_height
+		pos_hint: {"center_x": .5}
+		padding: "24dp", "24dp", "24dp", "32dp"
+		spacing: "12dp"
+		size_hint_x: .75
+
+		
+		WhiteLabel:
+			text:
+				"We will shortly be sending you a conformation mail.\n" \
+				"Please open the mail and click on the link your account."
+			#halign: "center"
+			font_style: "Caption"
+
+		
+		
+
