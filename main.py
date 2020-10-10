@@ -7,5 +7,6 @@ class MyApp(MDApp):
     def build(self):
         return Builder.load_file('libs/kv/start_screen.kv')
 
-MyApp().run()
+if __name__ == '__main__':
+    MyApp().run()
 
