@@ -2,17 +2,20 @@
     "Banner": {
         "kv_string": "banner",
         "Factory": "Factory.KitchenSinkBanner()",
-        "name_screen": "banner"
+        "name_screen": "banner",
+        "icon": "message-alert-outline"
     },
     "Bottom Navigation": {
         "kv_string": "bottom_navigation",
         "Factory": "Factory.BottomNavigation()",
-        "name_screen": "bottom navigation"
+        "name_screen": "bottom navigation",
+        "icon": "picture-in-picture-bottom-right"
     },
     "Bottm Sheets": {
         "kv_string": "bottom_sheet",
         "Factory": "KitchenSinkBottomSheet()",
         "Import": "from libs.baseclass.bottom_sheet import KitchenSinkBottomSheet",
-        "name_screen": "bottom sheet"
+        "name_screen": "bottom sheet",
+        "icon": "text-box-outline"
     }
 }
