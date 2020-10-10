@@ -13,6 +13,13 @@
 
 
 BoxLayout:
+    orientation: "vertical"
+    
+    BoxLayout:
+        id: toolbar_box
+        size_hint_y: None
+        height: self.minimum_height
+
     ScreenManager:
         id: screen_manager
         transition: FadeTransition(duration=.2, clearcolor=app.theme_cls.bg_dark)

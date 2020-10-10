@@ -47,6 +47,9 @@ class MyApp(MDApp):
             Builder.load_file(f'libs/kv/{data_screen["kv_string"]}.kv')
             # Screen 객체(위젯) 획득
             screen_object = eval(data_screen["Factory"])
+            # Screen 안에 id=toolbar인 객체 존재 시 그 타이틀 변경
+            if 'toolbar' in screen_object.ids:
+                screen_object.ids.toolbar.title = name_screen
             # ScreenManager 객체에 Screen 위젯 추가
             manager.add_widget(screen_object)
         # 현재 화면을 Screen 위젯으로 변경
