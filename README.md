@@ -23,5 +23,6 @@
     pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install kivy.deps.gstreamer
     pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install kivy[base] kivy_examples --pre --extra-index-url https://kivy.org/downloads/simple/
     pip --trusted-host pypi.org --trusted-host files.pythonhosted.org install https://github.com/kivymd/KivyMD/archive/master.zip
+    
 ```
 git config --global user.email "lee3jjang@gmail.com"

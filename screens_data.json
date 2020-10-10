@@ -17,5 +17,19 @@
         "Import": "from libs.baseclass.bottom_sheet import KitchenSinkBottomSheet",
         "name_screen": "bottom sheet",
         "icon": "text-box-outline"
+    },
+    "Refresh Layout": {
+        "kv_string": "refresh_layout",
+        "Import": "from libs.baseclass.refresh_layout import KitchenSinkRefreshLayout",
+        "Factory": "KitchenSinkRefreshLayout()",
+        "name_screen": "refresh layout",
+        "icon": "refresh"
+    },
+    "Button Speed Dial": {
+        "kv_string": "stack_buttons",
+        "Import": "from libs.baseclass.stack_buttons import KitchenSinkStackButtons",
+        "Factory": "KitchenSinkStackButtons()",
+        "name_screen": "stack buttons",
+        "icon": "format-float-right"
     }
 }
