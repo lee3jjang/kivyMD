@@ -26,3 +26,6 @@
     
 ```
 git config --global user.email "lee3jjang@gmail.com"
+
+## 단축키
+* 경로복사: ctrl+shift+p -> shift+alt+c
