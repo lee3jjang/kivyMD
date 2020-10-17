@@ -32,6 +32,7 @@ KV = '''
             size_hint_y: 0.4
             min: 0
             max: 100
+            step: 1
             value: 40
             on_touch_move: root.slider_move(*args)
     
