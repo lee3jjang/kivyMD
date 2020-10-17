@@ -2,45 +2,52 @@ from kivy.core.window import Window
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.factory import Factory
+from kivy.uix.screenmanager import Screen
 Window.size = (144*3, 256*3)
 
 KV = '''
-<MyTile@SmartTileWithLabel>
-    size_hint_y: None
-    # height: "240dp"
+<Main@Screen>
+    name: 'main'
 
-ScrollView:
-    MDGridLayout:
-        cols: 3
-        adaptive_height: True
-        padding: dp(4), dp(4)
-        spacing: dp(4)
+    BoxLayout:
+        orientation: 'vertical'
 
-        MyTile:
-            text: "[size=26][color=#ffffff]Cat 1[/color][/size]\\n[size=14]cat-1.jfif[/size]"
-            source: 'images/cat1.jfif'
-        MyTile:
-            stars: 5
-            source: 'images/cat2.jfif'
-        MyTile:
-            stars: 5
-            source: 'images/cat3.jfif'
-        MyTile:
-            stars: 5
-            source: 'images/cat4.jfif'
-        MyTile:
-            stars: 5
-            source: 'images/cat5.jfif'
-        MyTile:
-            stars: 5
-            source: 'images/cat6.jfif'
+        MDToolbar:
+            title: 'MDLabel'
+
+        MDLabel:
+            id: label
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, .7
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            text: "MDLabel"
+            color: 0, 1, 0, .5
+            halign: 'center'
+            size_hint_y: 0.6
+
+        MDSlider:
+            size_hint_y: 0.4
+            min: 0
+            max: 100
+            value: 40
+            on_touch_move: root.slider_move(*args)
+    
+Main:
 '''
+
+class Main(Screen):
+    def slider_move(self, instance_slider, mouse_motion):
+        self.ids.label.text = str(instance_slider.value/100)
+        instance_slider.size_hint_y = instance_slider.value/100
+        self.ids.label.size_hint_y = 1-instance_slider.value/100
 
 class MyApp(MDApp):
     def build(self):
-        return Builder.load_string(KV)
-
-    def on_start(self):
-        pass
+        main = Builder.load_string(KV)
+        return main
+        
 
 MyApp().run()
