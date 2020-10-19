@@ -48,16 +48,15 @@ BoxLayout:
         left_action_items: [['menu', lambda x: app.menu_callback(x)]]
 
     MDBottomNavigation:
-        id: panel
 
         MDBottomNavigationItem:
-            name: "all"
-            text: "all"
-            icon: "alpha-a-circle-outline"
+            name: "incomplete"
+            text: "incomplete"
+            icon: "alpha-i-circle-outline"
 
             ScrollView:
                 MDList:
-                    id: todo_list_all
+                    id: todo_list_incomplete
 
         MDBottomNavigationItem:
             name: "complete"
@@ -69,13 +68,15 @@ BoxLayout:
                     id: todo_list_complete
 
         MDBottomNavigationItem:
-            name: "incomplete"
-            text: "incomplete"
-            icon: "alpha-i-circle-outline"
+            name: "all"
+            text: "all"
+            icon: "alpha-a-circle-outline"
 
             ScrollView:
                 MDList:
-                    id: todo_list_incomplete
+                    id: todo_list_all
+
+        
 
 '''
 class ListItemWithCheckbox(TwoLineAvatarIconListItem, TouchBehavior):
@@ -106,7 +107,7 @@ class ListItemWithCheckbox(TwoLineAvatarIconListItem, TouchBehavior):
 
 class RightCheckbox(IRightBodyTouch, MDCheckbox):
     def on_checkbox_active(self, instance_checkbox, is_checked):
-        print(is_checked)
+        pass
 
 class AddContent(BoxLayout):
     pass
@@ -127,13 +128,13 @@ class TodoApp(MDApp):
         self.renewal()
 
     def renewal(self):
-        rows = get_todo_all()
-        self.root.ids.todo_list_all.clear_widgets()
+        rows = get_todo_not_complete()
+        self.root.ids.todo_list_incomplete.clear_widgets()
         for row in rows:
             todo = ListItemWithCheckbox(todo_id=row[0], text=row[1], secondary_text=row[2])
             todo.ids._lbl_secondary.font_name = 'assets/fonts/NanumGothic.ttf'
             todo.ids._lbl_primary.font_name = 'assets/fonts/NanumGothic.ttf'
-            self.root.ids.todo_list_all.add_widget(todo)
+            self.root.ids.todo_list_incomplete.add_widget(todo)
 
         rows = get_todo_complete()
         self.root.ids.todo_list_complete.clear_widgets()
@@ -143,13 +144,15 @@ class TodoApp(MDApp):
             todo.ids._lbl_primary.font_name = 'assets/fonts/NanumGothic.ttf'
             self.root.ids.todo_list_complete.add_widget(todo)
 
-        rows = get_todo_not_complete()
-        self.root.ids.todo_list_incomplete.clear_widgets()
+        rows = get_todo_all()
+        self.root.ids.todo_list_all.clear_widgets()
         for row in rows:
             todo = ListItemWithCheckbox(todo_id=row[0], text=row[1], secondary_text=row[2])
             todo.ids._lbl_secondary.font_name = 'assets/fonts/NanumGothic.ttf'
             todo.ids._lbl_primary.font_name = 'assets/fonts/NanumGothic.ttf'
-            self.root.ids.todo_list_incomplete.add_widget(todo)
+            self.root.ids.todo_list_all.add_widget(todo)
+
+        
 
     def menu_callback(self, instance_button):
         # menu_items = [{"icon": "git", "text": f"Item {i}"} for i in range(5)]
