@@ -6,6 +6,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from kivymd.app import MDApp
 from kivy.factory import Factory
+from kivymd.uix.behaviors import TouchBehavior
 from kivymd.uix.list import IRightBodyTouch, OneLineAvatarIconListItem, TwoLineAvatarIconListItem
 from kivymd.uix.selectioncontrol import MDCheckbox
 from kivymd.uix.menu import MDDropdownMenu
@@ -77,9 +78,31 @@ BoxLayout:
                     id: todo_list_incomplete
 
 '''
-class ListItemWithCheckbox(TwoLineAvatarIconListItem):
+class ListItemWithCheckbox(TwoLineAvatarIconListItem, TouchBehavior):
     todo_id = NumericProperty()
     icon = StringProperty("android")
+    delete_dialog = None
+    def on_long_touch(self, *args):
+        def deleteButton(instance_button):
+            id = self.todo_id
+            delete_todo(id)
+            app.renewal()
+            self.delete_dialog.dismiss()
+
+        if not self.delete_dialog:
+            self.delete_dialog = MDDialog(
+                text="Delete Todo?",
+                buttons=[
+                    MDFlatButton(
+                        text="CANCEL", text_color=self.theme_cls.primary_color, on_release=lambda x: self.delete_dialog.dismiss()
+                    ),
+                    MDFlatButton(
+                        text="DELETE", text_color=self.theme_cls.primary_color, on_release=deleteButton
+                    ),
+                ],
+            )
+        self.delete_dialog.open()
+        
 
 class RightCheckbox(IRightBodyTouch, MDCheckbox):
     def on_checkbox_active(self, instance_checkbox, is_checked):
@@ -88,12 +111,13 @@ class RightCheckbox(IRightBodyTouch, MDCheckbox):
 class AddContent(BoxLayout):
     pass
 
-
 class TodoApp(MDApp):
     menu = None
     add_dialog = None
 
     def build(self):
+        global app
+        app = self
         root = Builder.load_string(KV)
         logo = root.ids.toolbar.ids.label_title
         logo.font_name = 'assets/fonts/NanumGothic.ttf'
@@ -104,6 +128,7 @@ class TodoApp(MDApp):
 
     def renewal(self):
         rows = get_todo_all()
+        self.root.ids.todo_list_all.clear_widgets()
         for row in rows:
             todo = ListItemWithCheckbox(todo_id=row[0], text=row[1], secondary_text=row[2])
             todo.ids._lbl_secondary.font_name = 'assets/fonts/NanumGothic.ttf'
@@ -111,6 +136,7 @@ class TodoApp(MDApp):
             self.root.ids.todo_list_all.add_widget(todo)
 
         rows = get_todo_complete()
+        self.root.ids.todo_list_complete.clear_widgets()
         for row in rows:
             todo = ListItemWithCheckbox(todo_id=row[0], text=row[1], secondary_text=row[2])
             todo.ids._lbl_secondary.font_name = 'assets/fonts/NanumGothic.ttf'
@@ -118,6 +144,7 @@ class TodoApp(MDApp):
             self.root.ids.todo_list_complete.add_widget(todo)
 
         rows = get_todo_not_complete()
+        self.root.ids.todo_list_incomplete.clear_widgets()
         for row in rows:
             todo = ListItemWithCheckbox(todo_id=row[0], text=row[1], secondary_text=row[2])
             todo.ids._lbl_secondary.font_name = 'assets/fonts/NanumGothic.ttf'
@@ -146,16 +173,13 @@ class TodoApp(MDApp):
                     self.renewal()
                     self.add_dialog.dismiss()
 
-                def cancelButton(instance_button):
-                    self.add_dialog.dismiss()
-
                 self.add_dialog = MDDialog(
                     title='Add Todo',
                     type='custom',
                     content_cls=AddContent(),
                     buttons=[
                         MDFlatButton(
-                            text="CANCEL", text_color=self.theme_cls.primary_color, on_release=cancelButton
+                            text="CANCEL", text_color=self.theme_cls.primary_color, on_release=lambda x: self.add_dialog.dismiss()
                         ),
                         MDFlatButton(
                             text="OK", text_color=self.theme_cls.primary_color, on_release=okButton
@@ -164,6 +188,5 @@ class TodoApp(MDApp):
                 )
             self.add_dialog.open()
         self.menu.dismiss()
-        
         
 TodoApp().run()
