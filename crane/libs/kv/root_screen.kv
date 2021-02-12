@@ -30,11 +30,11 @@
 <CraneTextField@MDTextFieldRound>
     size_hint_y: None
     height: dp(90)
-    icon_left_color: gch("#C79EBE")
-    color_active: gch("#720D5D")
-    normal_color: gch("#720D5D")
-    line_color: (0, 0, 0, 0)
-    foreground_color: gch("#ffffff")
+    icon_left_color: gch("#bcbd22")
+    color_active: gch("#8c564b")
+    normal_color: gch("#d62728")
+    line_color: gch("#bcbd22")
+    foreground_color: gch("#1f77b4")
     font_name: f"{environ['CRANE_ROOT']}/assets/fonts/Raleway-Medium.ttf"
 
 <ScrollView>
@@ -45,7 +45,7 @@
     size_hint_y: None
     padding: dp(20)
     spacing: dp(10)
-    height: dp(80)
+    height: dp(120)
 
     canvas:
         Color:
@@ -62,14 +62,14 @@
 		FitImage:
 			source: root.image
 			size_hint: (None, None)
-			size: (dp(70), dp(60))
-			radius: [10,]
+			size: (dp(100), dp(100))
+			radius: [20,]
 
 	MDBoxLayout:
 		orientation: 'vertical'
 		adaptive_height: True
 		pos_hint: {"center_x": .5, "center_y": .5}
-		spacing: dp(10)
+		spacing: dp(20)
 
 		MDLabel:
 			text: root.text
