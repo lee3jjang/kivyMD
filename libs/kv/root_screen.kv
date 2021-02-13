@@ -3,53 +3,53 @@
 #: import StiffScrollEffect kivymd.stiffscroll.StiffScrollEffect
 
 
-<FortnightlyRootScreen>
+<FortnightlyRootScreen>:
 
-	MDBoxLayout:
-		orientation: 'vertical'
+    MDBoxLayout:
+        orientation: "vertical"
 
-		FortnightlyToolbar:
+        FortnightlyToolbar:
 
-		ScrollView:
-			effect_cls: StiffScrollEffect
+        ScrollView:
+            effect_cls: StiffScrollEffect
 
-			MDList:
+            MDList:
 
-                HeadlineNews:
+        HeadlineNews:
 
-                FortnightlyListItem:
-                    title: "TECH"
-                    secondary_text: "The Future of Petrol"
-                    image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/gas.png"
+        FortnightlyListItem:
+            title: "TECH"
+            secondary_text: "The Future of Petrol"
+            image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/gas.png"
 
-                FortnightlyListItem:
-                    title: "POLITICS"
-                    secondary_text: "Divided American Lives During War"
-                    image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/war.png"
+        FortnightlyListItem:
+            title: "POLITICS"
+            secondary_text: "Divided American Lives During War"
+            image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/war.png"
 
-                MDList:
-                    padding: dp(20)
-                    FortnightlyLabel:
-                        text: "Latest updates"
-                        font_style: "Caption"
+        MDList:
+            padding: dp(20)
+            FortnightlyLabel:
+                text: "Latest updates"
+                font_style: "Caption"
 
-                FortnightlyListItem:
-                    title: "POLITICS"
-                    secondary_text: "Reforming The Green Army from Within"
-                    image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/army.png"
+        FortnightlyListItem:
+            title: "POLITICS"
+            secondary_text: "Reforming The Green Army from Within"
+            image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/army.png"
 
-                FortnightlyListItem:
-                    title: "WORLD"
-                    secondary_text: "As Stocks Stagnate, many Look to Currency"
-                    image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/stocks.png"
+        FortnightlyListItem:
+            title: "WORLD"
+            secondary_text: "As Stocks Stagnate, many Look to Currency"
+            image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/stocks.png"
 
-                FortnightlyListItem:
-                    title: "TECH"
-                    secondary_text: "Designers use Tech to make Futuristic Fabrics"
-                    image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/fabrics.png"
+        FortnightlyListItem:
+            title: "TECH"
+            secondary_text: "Designers use Tech to make Futuristic Fabrics"
+            image: f"{environ['FORTNIGHTLY_ROOT']}/assets/images/fabrics.png"
 
 
-<HeadlineNews@MDBoxLayout>
+<HeadlineNews@MDBoxLayout>:
     orientation: 'vertical'
     spacing: dp(10)
     adaptive_height: True
@@ -73,7 +73,7 @@
             font_style: "H5"
 
 
-<FortnightlyListItem>
+<FortnightlyListItem>:
     size_hint_y: None
     height: dp(100)
 
@@ -83,7 +83,7 @@
                 self.theme_cls.divider_color
         Line:
             points: (root.x+dp(16), root.y, root.x+self.width-dp(16)-0, root.y)
-
+        
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height: True
@@ -108,5 +108,5 @@
             size_hint: (None, None)
 
 
-<FortnightlyLabel@MDLabel>
+<FortnightlyLabel@MDLabel>:
     adaptive_height: True
