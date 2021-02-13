@@ -1,13 +1,18 @@
 import os
 from pathlib import Path
-from kivy.app import App
 
+from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.label import Label
+from kivy.core.window import Window
 from kivy.uix.scatter import Scatter
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
+
+Window.size = (960, 1009)
+Window.position = 'custom'
+Window.left, Window.top = (960, -1049)
 
 os.environ["PHYSICS_ROOT"] = str(Path(__file__).parent)
 KV_DIR = f"{os.environ['PHYSICS_ROOT']}/libs/kv/"
