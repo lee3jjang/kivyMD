@@ -39,6 +39,3 @@ class Test(MDApp):
             self.root.ids.tabs.add_widget(MyTab(text=name_tab))
 
 Test().run()
-
-git config --global user.email "you@example.com"
-git config --global user.name "Your Name"
