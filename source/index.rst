@@ -18,3 +18,9 @@ See the :doc:`my reference <generated/mypackage>`.
    getting-started
    themes/index
    about
+
+.. toctree::
+   :maxdepth: 1
+   :titlesonly:
+
+   API <api/mypackage/index>
