@@ -1,4 +1,3 @@
-"""
 KivyMD
 ======
 .. image:: https://github.com/HeaTTheatR/KivyMD-data/raw/master/gallery/previous.png
@@ -22,4 +21,3 @@ developer (permission to create branches on the project without forking for
 easier collaboration), have at least one PR approved and ask for it.
 If you contribute regularly to the project the role may be offered to you
 without asking too.
-"""

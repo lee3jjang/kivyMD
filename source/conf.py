@@ -62,6 +62,6 @@ html_static_path = ['_static']
 
 autoapi_modules = {
     "mypackage": {
-        "output": "generated",
+        "output": "api/kivymd",
     },
 }
