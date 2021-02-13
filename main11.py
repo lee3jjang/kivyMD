@@ -23,6 +23,7 @@ BoxLayout:
 class MyApp(MDApp):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.title = "Hello MyApp"
         self.manager_open = False
         self.file_manager = MDFileManager(
             exit_manager=self.exit_manager,
