@@ -6,9 +6,9 @@ from kivymd.app import MDApp
 from kivymd.icon_definitions import md_icons
 from kivymd.uix.list import OneLineIconListItem
 
-Window.size = (960, 1009)
-Window.position = 'custom'
-Window.left, Window.top = (960, -1049)
+# Window.size = (960, 1009)
+# Window.position = 'custom'
+# Window.left, Window.top = (960, -1049)
 
 KV = """
 MDScreen:
