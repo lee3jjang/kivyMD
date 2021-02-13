@@ -17,11 +17,28 @@
         on_text: root.change_label_colour()
     FloatLayout:
         Scatter:
+            center: self.parent.center
+            size_hint: None, None
+            size: my_label.size
+            canvas.after:
+                Color:
+                    rgba: 1, 0, 0, .5
+                Rectangle:
+                    size: self.size
+                    pos: self.pos
+            size_hint: None, None
             Label:
                 id: my_label
                 text: my_textinput.text
                 font_size: 150
                 color: root.text_colour
+                size: self.texture_size
+                canvas:
+                    Color:
+                        rgba: 0, 1, 0, 0.5
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
 
     BoxLayout:
         orientation: 'horizontal'

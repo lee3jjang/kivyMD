@@ -21,10 +21,22 @@ for kv_file in os.listdir(KV_DIR):
     with open(os.path.join(KV_DIR, kv_file), encoding="utf-8") as kv:
         Builder.load_string(kv.read())
 
-KV = """
-#:import ScatterTextWidget libs.baseclass.root_screen.ScatterTextWidget
+# KV = """
+# #:import ScatterTextWidget libs.baseclass.root_screen.ScatterTextWidget
 
-ScatterTextWidget:
+# ScatterTextWidget:
+# """
+
+# KV = """
+# #:import ScrollableLabel libs.baseclass.scroll_screen.ScrollableLabel
+
+# ScrollableLabel:
+# """
+
+KV = """
+#:import RootWidget libs.baseclass.layout_screen.RootWidget
+
+RootWidget:
 """
 
 class TutorialApp(App):
