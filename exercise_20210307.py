@@ -22,20 +22,21 @@ class MainApp(MDApp):
         return Builder.load_string(KV)
 
     def on_start(self):
-        button = MDIconButton(
+        self.button = MDIconButton(
             icon="language-python",
             user_font_size="64sp",
             theme_text_color="Custom",
             text_color=self.theme_cls.primary_color,
-            on_release=lambda btn: print(btn.icon)
+            # on_release=lambda btn: print(btn.icon)
         )
         # button.bind(on_release=lambda btn: print(btn.icon))
-        self.root.ids.container.add_widget(button)
+        self.root.ids.container.add_widget(self.button)
+
         for i in range(20):
             list_item = ThreeLineAvatarIconListItem(
                     text=f"Three-line item {i} with avatar",
                     secondary_text="Secondary text here",
-                    tertiary_text= "fit more text than usual",
+                    tertiary_text="fit more text than usual",
                 )
             if i%3 == 0:
                 list_item.add_widget(IconLeftWidget(icon="language-python"))
@@ -44,6 +45,8 @@ class MainApp(MDApp):
             else:
                 list_item.add_widget(IconLeftWidget(icon="plus"))
                 list_item.add_widget(RightCheckbox())
+                list_item.bind(on_release=lambda item: print(item.children[0].children[0].active))
+
 
             self.root.ids.container.add_widget(list_item)
 
